@@ -124,7 +124,7 @@
     <div class="cpf-section" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
         <input type="text" id="cpfInput" placeholder="CPF" />
         <button onclick="buscarCPF()">Buscar</button>
-        <img src="https://www.dropbox.com/scl/fi/mpobkc3nkk0s6neeltin9/Design-sem-nome-5.png?rlkey=wsdkzj9q7rsf28s16mry1swje&st=ovtn0eva&dl=1" alt="Logo" width="80" height="80">
+        <img src="https://www.dropbox.com/scl/fi/4hteabjpus785l5qmujih/Design-sem-nome-6.png?rlkey=7c1dh5gqmn9lsjagfj2sahrp5&st=mj0g3lhc&dl=1" alt="Logo">
     </div>
 
     <!-- Resultado da busca -->
@@ -132,11 +132,9 @@
 
     <div class="logos">
         <img
-    src="https://www.dropbox.com/scl/fi/qteisfgobusjg6892oamc/Design-sem-nome-4.png?rlkey=jdv7ll6rjdhmzwq9hwmd6iqcu&st=u7mqifnk&dl=1"
-    alt="Logo"
-    width="250"
-    height="40"
-    style="margin-bottom: 20px;"
+            src="https://www.dropbox.com/scl/fi/6w6f4g6iqperdc1qxu4ku/Design-sem-nome-7.png?rlkey=2luuewrbz5k04qofc8ghy8jv6&st=jd5hvgf6&dl=1"
+            alt="Logo"
+            style="margin-bottom: 20px;">
     </div>
   </div>
 
@@ -154,23 +152,23 @@
     });
 
     function buscarCPF() {
-        const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
-        const resultadoDiv = document.getElementById("resultado");
-        const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
+    const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
+    const resultadoDiv = document.getElementById("resultado");
+    const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
 
-        // Limpar o conteúdo anterior e a cor de fundo
-        resultadoDiv.innerHTML = '';
-        resultadoDiv.classList.remove('encontrado');
+    // Limpar o conteúdo anterior e a cor de fundo
+    resultadoDiv.innerHTML = '';
+    resultadoDiv.classList.remove('encontrado');
 
-        if (resultado) {
-            resultadoDiv.innerHTML = `
-            <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
-            <p>${resultado["EndereçoLoja"]}</p>
-            `;
-            resultadoDiv.classList.add('encontrado'); // Adiciona a cor de fundo
-        } else {
-            resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
-        }
+    if (resultado) {
+        resultadoDiv.innerHTML = `
+        <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
+        <p>${resultado["EndereçoLoja"]}</p>
+        `;
+        resultadoDiv.classList.add('encontrado'); // Adiciona a cor de fundo
+    } else {
+        resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
+    }
     }
   </script>
 
