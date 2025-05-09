@@ -85,9 +85,14 @@
       margin-top: 20px;
       margin-left: 10px;
       margin-right: 10px;
+      margin-bottom: 20px;
       font-size: 1.1rem;
-      background-color: #fbbd17;
       border-radius: 15px;
+      padding-top: 15px;  /* Espaço no topo */
+      padding-bottom: 15px
+    }
+    #resultado.encontrado {
+        background-color: #fbbd17; /* Cor de fundo quando houver resultado */
     }
   </style>
 </head>
@@ -149,18 +154,23 @@
     });
 
     function buscarCPF() {
-      const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
-      const resultadoDiv = document.getElementById("resultado");
-      const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
+        const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
+        const resultadoDiv = document.getElementById("resultado");
+        const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
 
-      if (resultado) {
-        resultadoDiv.innerHTML = `
-          <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
-          <p>${resultado["EndereçoLoja"]}</p>
-        `;
-      } else {
-        resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
-      }
+        // Limpar o conteúdo anterior e a cor de fundo
+        resultadoDiv.innerHTML = '';
+        resultadoDiv.classList.remove('encontrado');
+
+        if (resultado) {
+            resultadoDiv.innerHTML = `
+            <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
+            <p>${resultado["EndereçoLoja"]}</p>
+            `;
+            resultadoDiv.classList.add('encontrado'); // Adiciona a cor de fundo
+        } else {
+            resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
+        }
     }
   </script>
 
