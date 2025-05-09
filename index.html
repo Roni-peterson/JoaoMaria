@@ -6,21 +6,25 @@
   <title>Campanha Experimental</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #d6d6d6; /* Cinza mais escuro */
+      background-color: #d6d6d6;
       margin: 0;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       color: #333;
     }
 
     .content {
       background-color: #FFFFFF;
-      padding: 0px;
+      padding: 0;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       max-width: 500px;
@@ -28,13 +32,17 @@
       text-align: center;
     }
 
-    .logo {
-      margin-bottom: 20px;
-    }
-
-    .logo img {
-      max-width: 100%;
+    .logo img,
+    .logos img {
+      width: auto;
       height: auto;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+    .logor img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .frase {
@@ -43,18 +51,22 @@
       padding: 20px;
       text-align: center;
       border-radius: 5px;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
     }
 
     .cpf-section {
-      margin-top: 20px;
+      margin: 20px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
     #cpfInput {
       padding: 10px;
       font-size: 1rem;
-      width: 250px;
-      margin-right: 10px;
+      width: 90%;
+      max-width: 300px;
       border: 1px solid #ccc;
       border-radius: 5px;
       outline: none;
@@ -76,23 +88,43 @@
     }
 
     .instruction {
-      margin-top: 6px;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       color: #666;
+      padding: 10px;
     }
 
     #resultado {
-      margin-top: 20px;
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
+      margin: 20px 15px;
+      font-size: 1rem;
       border-radius: 15px;
-      padding-top: 15px;  /* Espaço no topo */
-      padding-bottom: 15px
+      padding: 15px;
     }
+
     #resultado.encontrado {
-        background-color: #fbbd17; /* Cor de fundo quando houver resultado */
+      background-color: #fbbd17;
+    }
+
+    @media (min-width: 600px) {
+      .cpf-section {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      #cpfInput {
+        width: 250px;
+      }
+
+      .cpf-section img {
+        width: 80px;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 599px) {
+      .cpf-section img {
+        width: 60px;
+        height: auto;
+      }
     }
   </style>
 </head>
@@ -101,11 +133,10 @@
   <div class="content">
 
     <!-- Imagem da campanha -->
-    <div class="logo">
-        <img 
-            src="https://dl.dropboxusercontent.com/scl/fi/m8d6o0mquxq3ne7xrzrn0/Banner_Site.jpg?rlkey=w0jxs18b7rhgjgdr6pzugn1cs&st=cuer36cg" 
-            alt="Banner da campanha" 
-            style="width: 100%; display: block; margin: 0; padding: 0; border: none;">
+    <div class="logor">
+      <img 
+        src="https://dl.dropboxusercontent.com/scl/fi/m8d6o0mquxq3ne7xrzrn0/Banner_Site.jpg?rlkey=w0jxs18b7rhgjgdr6pzugn1cs&st=cuer36cg" 
+        alt="Banner da campanha">
     </div>
 
     <!-- Frase de destaque -->
@@ -119,29 +150,29 @@
 
     <!-- Campo de pesquisa -->
     <div class="instruction">
-        <p>Digite o CPF para confirmar os dados.</p>
+      <p>Digite o CPF para confirmar os dados.</p>
     </div>
-    <div class="cpf-section" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <input type="text" id="cpfInput" placeholder="CPF" />
-        <button onclick="buscarCPF()">Buscar</button>
-        <img src="https://dl.dropboxusercontent.com/scl/fi/4hteabjpus785l5qmujih/Design-sem-nome-6.png?rlkey=7c1dh5gqmn9lsjagfj2sahrp5&st=mj0g3lhc" alt="Logo">
+
+    <div class="cpf-section">
+      <input type="text" id="cpfInput" placeholder="CPF" />
+      <button onclick="buscarCPF()">Buscar</button>
+      <img src="https://dl.dropboxusercontent.com/scl/fi/4hteabjpus785l5qmujih/Design-sem-nome-6.png?rlkey=7c1dh5gqmn9lsjagfj2sahrp5&st=mj0g3lhc" alt="Logo">
     </div>
 
     <!-- Resultado da busca -->
     <div id="resultado"></div>
 
+    <!-- Rodapé -->
     <div class="logos">
-        <img
-            src="https://dl.dropboxusercontent.com/scl/fi/6w6f4g6iqperdc1qxu4ku/Design-sem-nome-7.png?rlkey=2luuewrbz5k04qofc8ghy8jv6&st=jd5hvgf6"
-            alt="Logo"
-            style="margin-bottom: 20px;">
+      <img
+        src="https://dl.dropboxusercontent.com/scl/fi/6w6f4g6iqperdc1qxu4ku/Design-sem-nome-7.png?rlkey=2luuewrbz5k04qofc8ghy8jv6&st=jd5hvgf6"
+        alt="Logo Rodapé">
     </div>
   </div>
 
   <script>
     let dados = [];
 
-    // Carrega os dados da planilha como CSV
     Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vRxODoHG-SQ6cupUiFx3zC0kw0d-9ghTGTw-RniuEvK7fe55HIa5PvbzprsDqsyIMBpecOotO3bukjV/pub?output=csv", {
       download: true,
       header: true,
@@ -152,23 +183,22 @@
     });
 
     function buscarCPF() {
-    const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
-    const resultadoDiv = document.getElementById("resultado");
-    const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
+      const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
+      const resultadoDiv = document.getElementById("resultado");
+      const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
 
-    // Limpar o conteúdo anterior e a cor de fundo
-    resultadoDiv.innerHTML = '';
-    resultadoDiv.classList.remove('encontrado');
+      resultadoDiv.innerHTML = '';
+      resultadoDiv.classList.remove('encontrado');
 
-    if (resultado) {
+      if (resultado) {
         resultadoDiv.innerHTML = `
-        <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
-        <p>${resultado["EndereçoLoja"]}</p>
+          <p><strong>Se apresente na loja abaixo para retirar o brinde:</strong></p>
+          <p>${resultado["EndereçoLoja"]}</p>
         `;
-        resultadoDiv.classList.add('encontrado'); // Adiciona a cor de fundo
-    } else {
+        resultadoDiv.classList.add('encontrado');
+      } else {
         resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
-    }
+      }
     }
   </script>
 
