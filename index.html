@@ -185,10 +185,16 @@
     function buscarCPF() {
       const cpfDigitado = document.getElementById("cpfInput").value.trim().replace(/\D/g, "");
       const resultadoDiv = document.getElementById("resultado");
-      const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
 
       resultadoDiv.innerHTML = '';
       resultadoDiv.classList.remove('encontrado');
+
+      if (!cpfDigitado) {
+        resultadoDiv.innerHTML = `<p><strong>Insira o CPF por favor!</strong></p>`;
+        return;
+      }
+
+      const resultado = dados.find(linha => linha["CPF"]?.replace(/\D/g, "") === cpfDigitado);
 
       if (resultado) {
         resultadoDiv.innerHTML = `
@@ -197,7 +203,10 @@
         `;
         resultadoDiv.classList.add('encontrado');
       } else {
-        resultadoDiv.innerHTML = "<p>CPF não encontrado.</p>";
+        resultadoDiv.innerHTML = `
+          <p><strong>Brinde não disponível!</strong></p>
+          <p>Verifique se o CPF está correto!</p>
+        `;
       }
     }
   </script>
